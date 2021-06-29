@@ -1,62 +1,73 @@
-import React, {Component} from 'react';
-import Directory from './DirectoryComponent';
-import Home from './HomeComponent'
-import About from './AboutComponent';
-import Contact from './ContactComponent';
-import Reservation from './ReservationComponent';
-import { createStackNavigator } from 'react-navigation-stack';
-import CampsiteInfo from './CampsiteInfoComponent';
-import { View, Platform, StyleSheet, Text, Image, ScrollView } from 'react-native';
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
-import { createAppContainer } from 'react-navigation';
-import Constants from 'expo-constants';
-import { Icon } from 'react-native-elements';
-import  SafeAreaView  from 'react-native-safe-area-view';
-import { connect } from 'react-redux';
-import { fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreators';
-import Favorites from './FavoriteComponent'
+import React, { Component } from "react";
+import Directory from "./DirectoryComponent";
+import Home from "./HomeComponent";
+import About from "./AboutComponent";
+import Contact from "./ContactComponent";
+import Reservation from "./ReservationComponent";
+import { createStackNavigator } from "react-navigation-stack";
+import CampsiteInfo from "./CampsiteInfoComponent";
+import {
+  View,
+  Platform,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+} from "react-native";
+import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
+import { createAppContainer } from "react-navigation";
+import Constants from "expo-constants";
+import { Icon } from "react-native-elements";
+import SafeAreaView from "react-native-safe-area-view";
+import { connect } from "react-redux";
+import {
+  fetchCampsites,
+  fetchComments,
+  fetchPromotions,
+  fetchPartners,
+} from "../redux/ActionCreators";
+import Favorites from "./FavoriteComponent";
 
 const mapDispatchToProps = {
   fetchCampsites,
   fetchComments,
   fetchPromotions,
-  fetchPartners
+  fetchPartners,
 };
 const DirectoryNavigator = createStackNavigator(
-    {
-        Directory: { 
-          screen: Directory,
-          navigationOptions: ({navigation}) => ({
-            headerLeft: <Icon
-              name='list'
-              type='font-awesome'
-              iconStyle={StyleSheet.stackIcon}
-              onPress={()=> navigation.toggleDrawer()}
-            />
-          })
-        
-        },
-        CampsiteInfo: {screen: CampsiteInfo }
+  {
+    Directory: {
+      screen: Directory,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: (
+          <Icon
+            name="list"
+            type="font-awesome"
+            iconStyle={styles.stackIcon}
+            onPress={() => navigation.toggleDrawer()}
+          />
+        ),
+      }),
     },
-    {
-        initialRouteName: 'Directory',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: '#5637DD'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-                
-            
-        }
-    }
+    CampsiteInfo: { screen: CampsiteInfo },
+  },
+  {
+    initialRouteName: "Directory",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#5637DD",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+    },
+  }
 );
 
 const HomeNavigator = createStackNavigator(
   {
-    Home: { screen: Home }
+    Home: { screen: Home },
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -71,11 +82,11 @@ const HomeNavigator = createStackNavigator(
         <Icon
           name="home"
           type="font-awesome"
-          iconStyle={StyleSheet.stackIcon}
+          iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
-      )
-    })
+      ),
+    }),
   }
 );
 
@@ -96,11 +107,11 @@ const AboutNavigator = createStackNavigator(
         <Icon
           name="info-circle"
           type="font-awesome"
-          iconStyle={StyleSheet.stackIcon}
+          iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
-      )
-    })
+      ),
+    }),
   }
 );
 
@@ -121,11 +132,11 @@ const ContactNavigator = createStackNavigator(
         <Icon
           name="address-card"
           type="font-awesome"
-          iconStyle={StyleSheet.stackIcon}
+          iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
-      )
-    })
+      ),
+    }),
   }
 );
 
@@ -146,7 +157,7 @@ const ReservationNavigator = createStackNavigator(
         <Icon
           name="tree"
           type="font-awesome"
-          iconStyle={StyleSheet.stackIcon}
+          iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
       ),
@@ -171,7 +182,7 @@ const FavoritesNavigator = createStackNavigator(
         <Icon
           name="heart"
           type="font-awesome"
-          iconStyle={StyleSheet.stackIcon}
+          iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
       ),
@@ -179,7 +190,7 @@ const FavoritesNavigator = createStackNavigator(
   }
 );
 
-const CustomDrawerContentComponent = props => (
+const CustomDrawerContentComponent = (props) => (
   <ScrollView>
     <SafeAreaView
       style={styles.container}
@@ -188,7 +199,7 @@ const CustomDrawerContentComponent = props => (
       <View style={styles.drawerHeader}>
         <View style={{ flex: 1 }}>
           <Image
-            source={require('./images/logo.png')}
+            source={require("./images/logo.png")}
             style={styles.drawerImage}
           />
         </View>
@@ -277,7 +288,6 @@ const MainNavigator = createDrawerNavigator(
 const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
-
   componentDidMount() {
     this.props.fetchCampsites();
     this.props.fetchComments();
@@ -285,50 +295,47 @@ class Main extends Component {
     this.props.fetchPromotions();
   }
 
-    
-
-    render() {
-        return (
-            <View 
-                style={{
-                    flex: 1,
-                    paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
-                }}
-            >
-                <AppNavigator/>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
+        }}
+      >
+        <AppNavigator />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
-  drawerHeader:{
+  drawerHeader: {
     backgroundColor: "#5637DD",
     height: 140,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   drawerHeaderText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   drawerImage: {
     margin: 10,
     height: 60,
     width: 60,
-
   },
   stackIcon: {
-    marginLeft : 10,
-    color : '#fff',
-    fontSize : 24
-  }
+    marginLeft: 10,
+    color: "#fff",
+    fontSize: 24,
+  },
 });
 
 export default connect(null, mapDispatchToProps)(Main);
