@@ -1,5 +1,5 @@
 import * as ActionTypes from "./ActionTypes";
-import uuid from "uuid";
+
 
 export const comments = (state = { errMess: null, comments: [] }, action) => {
   switch (action.type) {
